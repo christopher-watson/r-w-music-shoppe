@@ -1,7 +1,9 @@
 // main react imports
 import React, { Component } from "react";
 // components/utils
+//import Navbar from '../components/Navbar';
 import Navbar from '../components/Navbar';
+
 // import API from '../utils/API';
 
 // images
