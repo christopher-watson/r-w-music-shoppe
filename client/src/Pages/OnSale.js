@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
-
+import DB from "../img/ziggy.jpg";
+import WT from "../img/wutang.jpg";
 
 
 const OnSale = props => {
@@ -10,13 +11,13 @@ return (
     <MDBCard xstyle={{ width: "22rem" }}>
       <MDBCardBody>
            <MDBCardTitle tag="h5">David Bowie</MDBCardTitle>
-           <MDBCardImage className="img-fluid" src="/Users/alexrosen/Documents/GitHub/r-w-music-shoppe/client/src/img/wutang.jpg" waves />
+           <MDBCardImage className="img-fluid" src={DB} waves />
         <MDBCardText>
 Ziggy Stardust and the Spiders From Mars
         </MDBCardText>
       </MDBCardBody>
       <MDBCardFooter tag="h5">
-      <a href ="#" target="_blank" download="Dental">Dental Information </a>
+      <a href ="#" target="_blank" download="Dental">Add to Cart </a>
       </MDBCardFooter>
     </MDBCard>
 
@@ -24,7 +25,7 @@ Ziggy Stardust and the Spiders From Mars
     <MDBCard cascade>
       <MDBCardBody cascade>
         <MDBCardTitle  tag="h5">Wu Tang</MDBCardTitle>
-        <MDBCardImage cascade className="img-fluid" src="img/wutang.jpg" />
+        <MDBCardImage cascade className="img-fluid" src={WT} waves />
         <MDBCardText>
         36 Chambers
         </MDBCardText>
