@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 // components/utils
 //import Navbar from '../components/Navbar';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 
 // import API from '../utils/API';
 
@@ -34,7 +34,6 @@ class Main extends Component {
   render() {
     return (
       <div>
-     
         <div className="main-container">
           MAIN
         </div>
