@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
+import { MDBIcon, MDBTooltip, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
 import DB from "../img/ziggy.jpg";
 import WT from "../img/wutang.jpg";
 
@@ -8,36 +8,58 @@ const OnSale = props => {
 return (
 <MDBContainer>
   <MDBCardGroup deck>
-    <MDBCard xstyle={{ width: "22rem" }}>
-      <MDBCardBody>
-           <MDBCardTitle tag="h5">David Bowie</MDBCardTitle>
-           <MDBCardImage className="img-fluid" src={DB} waves />
-        <MDBCardText>
-Ziggy Stardust and the Spiders From Mars
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBCardFooter tag="h5">
-      <a href ="#" target="_blank" download="Dental">Add to Cart </a>
-      </MDBCardFooter>
-    </MDBCard>
+    
+            <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
+               <MDBCardTitle tag="h5">
+                  David Bowie
+                </MDBCardTitle>
+                <MDBCardImage cascade top src={DB}
+                waves />
+              <MDBCardBody cascade className="text-center">
+               
+                <MDBCardTitle>
+                  <a href="#!"><strong>Ziggy Stardust</strong></a>
+                </MDBCardTitle>
+                <MDBCardText>
+                 A must own! On sale Now!
+                </MDBCardText>
+                <MDBCardFooter>
+                  <span className="float-left">19$</span>
+                  <span className="float-right">
+                  <MDBIcon icon="cart-plus" />
+                    <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
+                  </span>
+                </MDBCardFooter>
+              </MDBCardBody>
+            </MDBCard>
 
 
-    <MDBCard cascade>
-      <MDBCardBody xstyle={{ width: "22rem"}}>
-        <MDBCardTitle  tag="h5">Wu Tang</MDBCardTitle>
-        <MDBCardImage className="img-fluid" src={WT} waves />
-        <MDBCardText>
-        36 Chambers
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBCardFooter tag="h5">
-      <a href ="#" target="_blank" download="#">Add to Cart </a>
-      </MDBCardFooter>
-    </MDBCard>
-  </MDBCardGroup>
- 
- 
- 
+
+            <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
+               <MDBCardTitle tag="h5">
+                  Wu-Tang Clan
+                </MDBCardTitle>
+                <MDBCardImage cascade top src={WT}
+                waves />
+              <MDBCardBody cascade className="text-center">
+               
+                <MDBCardTitle>
+                  <a href="#!"><strong>36 Chambers</strong></a>
+                </MDBCardTitle>
+                <MDBCardText>
+                 A must own! On sale Now!
+                </MDBCardText>
+                <MDBCardFooter>
+                  <span className="float-left">19$</span>
+                  <span className="float-right">
+                  <MDBIcon icon="cart-plus" />
+                    <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
+                  </span>
+                </MDBCardFooter>
+              </MDBCardBody>
+            </MDBCard>
+            </MDBCardGroup>
+
   </MDBContainer>
     );
   };

@@ -6,11 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Main from './Pages/Main';
 import OnSale from './Pages/OnSale';
 import Navbar from './components/Navbar'
-<<<<<<< HEAD
 import NewArrivals from './Pages/NewArrivals';
-=======
 import Cart from './components/Modal/Cart'
->>>>>>> c1ec43a5191eb5a360700bdde4471e7a29d3976a
 
 
 // css/images

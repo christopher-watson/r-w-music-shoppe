@@ -1,50 +1,36 @@
-import React, { Component } from "react";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
+import React, { Compomdbnent } from "react";
+import { MDBIcon, MDBTooltip, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
 
 
 const NewArrivals = props => {
     return (
-
-
-// <!--Card--></div>
-<div class="card card-cascade card-ecommerce wider">
-
-  {/* <!--Card image--> */}
-  <div class="view view-cascade overlay">
-    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/shoes%20(2).jpg"
-      alt=""/>
-    <a>
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-  {/* <!--/.Card image--> */}
-{/* hey */}
-  {/* <!--Card content--> */}
-  <div class="card-body card-body-cascade text-center">
-    {/* <!--Category & Title--> */}
-    <h5>Shoes</h5>
-    <h4 class="card-title"><strong><a href="">Product name</a></strong></h4>
-
-    {/* <!--Description--> */}
-    <p class="card-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-      eveniet ut et voluptates.</p>
-
-    {/* <!--Card footer--> */}
-    <div class="card-footer">
-      <span class="float-left">49$</span>
-      <span class="float-right">
-        <a data-toggle="tooltip" data-placement="top" title="Share"><i class="fas fa-share-alt mr-3"></i></a>
-        <a class="active" data-toggle="tooltip" data-placement="top" title="Added to Wishlist"><i class="fas fa-heart"></i></a>
-      </span>
-    </div>
-
-  </div>
-  {/* <!--/.Card content--> */}
-
-</div>
-
-    );
-    };
-
+     
+            <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
+              <MDBCardImage cascade top src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/shoes%20(2).jpg"
+                waves />
+              <MDBCardBody cascade className="text-center">
+                <MDBCardTitle tag="h5">
+                  Category
+                </MDBCardTitle>
+                <MDBCardTitle>
+                  <a href="#!"><strong>Product name</strong></a>
+                </MDBCardTitle>
+                <MDBCardText>
+                  Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                  eveniet ut et voluptates.
+                </MDBCardText>
+                <MDBCardFooter>
+                  <span className="float-left">19$</span>
+                  <span className="float-right">
+                  <MDBIcon icon="cart-plus" />
+                    <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
+                  </span>
+                  
+                </MDBCardFooter>
+              </MDBCardBody>
+            </MDBCard>
+          );
+        }
+        
 
 export default NewArrivals; 
