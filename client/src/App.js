@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Main from './Pages/Main';
 import OnSale from './Pages/OnSale';
 import Navbar from './components/Navbar'
+import NewArrivals from './Pages/NewArrivals';
+
 
 // css/images
 // import logo from './logo.svg';
@@ -17,8 +19,10 @@ const App = () => (
     <div className="main-container">
        <Navbar/> 
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/Main" component={Main} />
         <Route exact path="/OnSale" component ={OnSale}/>
+        <Route exact path="/NewArrivals" component ={NewArrivals}/>
+
       </Switch>
     </div>
   </Router>
