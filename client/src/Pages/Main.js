@@ -1,6 +1,6 @@
 // main react imports
 import React, { Component } from "react";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
+import { MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
 
 // components/utils
 //import Navbar from '../components/Navbar';
@@ -11,52 +11,45 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 // images
 // import BG from "../components/Images/bg.png";
 
-// Main react component
-class Main extends Component {
-  // main component state
-  state = {
+// // Main react component
+// class Main extends Component {
+//   // main component state
+//   state = {
 
-  }
+//   }
 
-  // whent the component mounts to the DOM
-  componentDidMount() {
+//   // whent the component mounts to the DOM
+//   componentDidMount() {
 
-  }
+//   }
 
-  // handle input change for state
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    })
-  }
+//   // handle input change for state
+//   handleInputChange = event => {
+//     const { name, value } = event.target;
+//     this.setState({
+//       [name]: value
+//     })
+//   }
 
 
-  // render method for Main
-  render() {
-    return (
+const Main = props => {
+  return (
 
-     
-          <MDBCardGroup>
-            <MDBCard>
-              <MDBCardImage src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" alt="MDBCard image cap" top hover
-                overlay="white-slight" />
-              <MDBCardBody>
-                <MDBCardTitle tag="h5">Panel title</MDBCardTitle>
-                <MDBCardText>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </MDBCardText>
-                <MDBBtn color="primary" size="md">
-                  read more
-                </MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
- </MDBCardGroup>
- 
 
-    )
-  }
+      <MDBRow>
+      <MDBCol>
+        <MDBCard wide>
+        <MDBCardTitle>Welcome to R-W Music Shoppe</MDBCardTitle>
+          <MDBCardImage cascade className="img-fluid" src="#" />
+          <MDBCardBody cascade>
+            
+            <MDBCardText>Enjoy a refreshing mix of classic albums on the only format that matters!</MDBCardText>
+            <MDBBtn href="/NewArrivals">Our main collection</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+           </MDBRow>
+  )
 }
 
 export default Main;
