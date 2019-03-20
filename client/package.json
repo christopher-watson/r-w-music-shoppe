@@ -4,10 +4,14 @@
   "proxy": "http://localhost:3001/",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "passport-oauth": "^1.0.0",
+    "passport-oauth2": "^1.5.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5"
+    "react-scripts": "^2.1.5",
+    "typescript": "^3.3.3333"
   },
   "scripts": {
     "start": "react-scripts start",
