@@ -1,7 +1,7 @@
 // main react imports
 import React, { Component } from "react";
-import { MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
-
+import {MDBJumbotron, MDBView, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
+import Records from "../img/records.jpeg";
 // components/utils
 //import Navbar from '../components/Navbar';
 // import Navbar from '../components/Navbar';
@@ -35,21 +35,19 @@ import { MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitl
 const Main = props => {
   return (
 
+  <MDBJumbotron center>
+<MDBContainer>
+  <h1 className="text-center"><strong>Welcome to R-W Music Shoppe</strong></h1>
+  <h2 className="text-center">Definitely better than Amazon</h2>
+  
 
-      <MDBRow>
-      <MDBCol>
-        <MDBCard wide>
-        <MDBCardTitle>Welcome to R-W Music Shoppe</MDBCardTitle>
-          <MDBCardImage cascade className="img-fluid" src="#" />
-          <MDBCardBody cascade>
-            
-            <MDBCardText>Enjoy a refreshing mix of classic albums on the only format that matters!</MDBCardText>
-            <MDBBtn href="/NewArrivals">Our main collection</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-           </MDBRow>
-  )
+  <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
+  
+</MDBContainer>
+</MDBJumbotron>
+
+)
 }
+
 
 export default Main;
