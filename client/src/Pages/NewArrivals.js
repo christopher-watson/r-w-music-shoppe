@@ -18,7 +18,7 @@ const NewArrivals = props => {
     </a>
   </div>
   {/* <!--/.Card image--> */}
-
+{/* hey */}
   {/* <!--Card content--> */}
   <div class="card-body card-body-cascade text-center">
     {/* <!--Category & Title--> */}

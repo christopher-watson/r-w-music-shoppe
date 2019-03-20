@@ -4,7 +4,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 
 // components/utils
 //import Navbar from '../components/Navbar';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 
 // import API from '../utils/API';
 
@@ -35,6 +35,7 @@ class Main extends Component {
   // render method for Main
   render() {
     return (
+
      
           <MDBCardGroup>
             <MDBCard>
@@ -53,6 +54,7 @@ class Main extends Component {
             </MDBCard>
  </MDBCardGroup>
  
+
     )
   }
 }
