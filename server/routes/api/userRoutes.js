@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const passport = require('passport');
-const usersController = require('../../controllers/userController');
+const userController = require('../../controllers/userController');
 
 // DEBUG
 router
   .route("/create")
-  // .get(usersController.findAll)
-  .post(usersController.create);
+  // .get(userController.findAll)
+  .post(userController.create);
 
 
 // Matches with "/api/user/login"
@@ -45,16 +45,25 @@ router
     res.json(false);
   })
 
-// // Matches with "/api/users/:id"
-// router
-//   .route('/:id')
-//   .get(usersController.findByUserName)
-//   .put(usersController.update)
-//   .delete(usersController.remove);
+// Matches with "/api/user/:id"
+router
+  .route('/:id')
+  .get(userController.findByUserName)
+  .put(userController.update);
 
-// // register a new user ("/api/users/register")
-// router
-//   .route('/register')
-//   .post(usersController.register);
+  // Matches with "/api/user/delete/:id"
+router
+  .route('/delete/:id')
+  .delete(userController.remove);
+
+// Matches with "/api/user/addalbum/:id"
+router
+  .route('/addalbum/:id')
+  .post(userController.addAlbum);
+
+  // Matches with "/api/user/all"
+router
+  .route('/all')
+  .get(userController.findAll);
 
 module.exports = router;
