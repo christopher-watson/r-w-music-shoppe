@@ -37,11 +37,15 @@ const Main = props => {
 
   <MDBJumbotron center>
 <MDBContainer>
-  <h1 className="text-center"><center-strong>Welcome to R-W Music Shoppe</center-strong></h1>
+  <h1 className="text-center"><strong>Welcome to R-W Music Shoppe</strong></h1>
   <h2 className="text-center">Definitely better than Amazon</h2>
-  <MDBBtn className="btn-primary" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
+  
+
+  <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
+  
 </MDBContainer>
 </MDBJumbotron>
+
 )
 }
 
