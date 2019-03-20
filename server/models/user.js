@@ -10,7 +10,12 @@ const User = new Schema({
   email: { 
     type: String, 
     default: 'test'
-  }
+  },
+  //cart full of albums
+  _albums: [{
+    type: [Schema.Types.ObjectId], 
+    ref: 'Album'
+  }],
 });
 
 // Set up passport to authenticate
