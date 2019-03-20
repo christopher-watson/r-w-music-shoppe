@@ -23,15 +23,15 @@ Ziggy Stardust and the Spiders From Mars
 
 
     <MDBCard cascade>
-      <MDBCardBody cascade>
+      <MDBCardBody xstyle={{ width: "22rem"}}>
         <MDBCardTitle  tag="h5">Wu Tang</MDBCardTitle>
-        <MDBCardImage cascade className="img-fluid" src={WT} waves />
+        <MDBCardImage className="img-fluid" src={WT} waves />
         <MDBCardText>
         36 Chambers
         </MDBCardText>
       </MDBCardBody>
       <MDBCardFooter tag="h5">
-      <a> 36 Chambers </a>
+      <a href ="#" target="_blank" download="#">Add to Cart </a>
       </MDBCardFooter>
     </MDBCard>
   </MDBCardGroup>
