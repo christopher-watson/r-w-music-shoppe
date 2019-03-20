@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Album = new Schema({
+const albumSchema = new Schema({
+// const Album = new Schema({
   artist: { 
     type: String, 
     default: 'Elton John'
@@ -20,11 +21,11 @@ const Album = new Schema({
   },
   art: { 
     type: String, 
-    default: 'https://res.cloudinary.com/yowats0n/image/upload/v1553117894/rw-music/yellowBrickRoad.jpg'
+    default: 'https://res.cloudinary.com/yowats0n/image/upload/v1553119536/rw-music/default_album.png'
   },
 });
 
-// Set up passport to authenticate
-// User.plugin(OAuth2Strategy);
+const Album = mongoose.model("Albums", albumSchema);
+module.exports = Album;
 
-module.exports = mongoose.model('Albums', Album);
+// module.exports = mongoose.model('Album', Album);
