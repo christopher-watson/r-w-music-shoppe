@@ -1,8 +1,11 @@
 // main react imports
 import React, { Component } from "react";
-import {MDBttn, MDBButton, MDBJumbotron, MDBView, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
+import {MDBMask, MDBIcon, MDBttn, MDBButton, MDBJumbotron, MDBView, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
 import Records from "../img/records.jpeg";
+
+
 // components/utils
+
 //import Navbar from '../components/Navbar';
 // import Navbar from '../components/Navbar';
 
@@ -37,6 +40,7 @@ const Main = props => {
 
   <MDBJumbotron center>
 <MDBContainer>
+
   <h1 className="text-center"><strong>Welcome to R-W Music Shoppe</strong></h1>
   <h2 className="text-center">Definitely better than Amazon</h2>
   
@@ -45,8 +49,15 @@ const Main = props => {
 </MDBContainer>
 </MDBJumbotron>
 
-)
+
+
+
+ 
+
+
+);
 }
 
+  
 
 export default Main;
