@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// const OAuth2Strategy = require('passport-oauth2');
 
 const User = new Schema({
-  name: { 
+  username: { 
     type: String, 
-    default: 'TEST'
+    default: 'USERNAME'
   },
-  email: { 
+  googleId: { 
     type: String, 
-    default: 'test'
+    default: 'GOOGLE_ID'
+  },
+  thumbnail: { 
+    type: String, 
+    default: 'THUMBNAIL'
   },
   //cart full of albums
   _albums: [{
@@ -17,8 +20,5 @@ const User = new Schema({
     ref: 'Album'
   }],
 });
-
-// Set up passport to authenticate
-// User.plugin(OAuth2Strategy);
 
 module.exports = mongoose.model('User', User);

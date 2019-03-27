@@ -26,6 +26,6 @@ router
 // ../api/album/create
 router
   .route('/create')
-  .get(albumController.create)
+  .post(albumController.create)
 
 module.exports = router;
