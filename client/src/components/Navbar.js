@@ -1,17 +1,60 @@
 import React, { Component } from "react";
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
-MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
+MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon
 } from "mdbreact";
+import API from "../utils/API";
+
 
 class NavbarPage extends Component {
 state = {
-  isOpen: false
+  isOpen: false,
+  user: null,
+  loggedIn: false,
+  userInfo: null,
+  defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png'
 };
+
+componentDidMount() {
+  this.userCheck()
+}
 
 toggleCollapse = () => {
   this.setState({ isOpen: !this.state.isOpen });
 }
+
+login = () => {
+  API
+    .login()
+}
+
+logout = () => {
+  API
+    .logout()
+  this.setState({ loggedIn: false });
+}
+
+getUserInfo = (a) => {
+  API
+    .getUserInfo(a)
+    .then(res => {
+      console.log(res.data)
+      this.setState({ userInfo: res.data })
+    })
+}
+
+userCheck = () => {
+  const userID = window.location.href.split('?=')[1]
+  if(userID){
+    console.log(userID)
+    this.setState({ user: userID, loggedIn: true })
+    this.getUserInfo(userID)
+  }
+  else{
+    console.log("👎🏽");
+  }
+}
+
 
 render() {
   return (
@@ -22,7 +65,7 @@ render() {
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            <MDBNavItem active>
+            <MDBNavItem>
               <MDBNavLink to="/Main">Main</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
@@ -37,21 +80,56 @@ render() {
                   <span className="mr-2">Cart</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                  {/* POPULATE WITH CART ITEMS */}
+                  {/* ENTIRE CART WILL EVENTUALL BE A LINK TO CART */}
+                  <MDBDropdownItem href="#!">View Entire Cart</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
           </MDBNavbarNav>
-          <MDBNavbarNav right>
+            <MDBNavbarNav right>
+            { !this.state.loggedIn ?
+              <MDBNavItem>
+                <MDBDropdown>
+                  <MDBDropdownToggle nav>
+                    <span className="mr-5">Login</span>
+                  </MDBDropdownToggle>
+                    <MDBDropdownMenu>
+                      <MDBDropdownItem>
+                        <MDBBtn className="login-button" outline color='danger' social="gplus" href='http://localhost:3001/auth/google'>
+                          <MDBIcon fab icon="google-plus-g" className="pr-1"/> Login with Google
+                        </MDBBtn>
+                      </MDBDropdownItem>
+                      <MDBDropdownItem>
+                        <MDBBtn className="login-button" outline color='primary' social="fbook">
+                          <MDBIcon fab icon="facebook-f" className="pr-1"/> Login with Facebook
+                        </MDBBtn>
+                      </MDBDropdownItem>
+                    </MDBDropdownMenu>
+                </MDBDropdown>
+              </MDBNavItem>
+            :
             <MDBNavItem>
-              <MDBFormInline waves>
-                <div className="md-form my-0">
-                  <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                </div>
-              </MDBFormInline>
+              <MDBNavLink to="/" onClick={this.logout} className="mr-5">
+              {
+                this.state.userInfo 
+                ? <img className="nav-image" src={this.state.userInfo.thumbnail}/>
+                : <img className="nav-image" src={this.state.defaultImage}/>
+              }
+                Logout
+              </MDBNavLink>
             </MDBNavItem>
-          </MDBNavbarNav>
+
+            }
+            <MDBNavItem>
+            <MDBFormInline waves>
+            <div className="md-form my-0">
+            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+            </div>
+            </MDBFormInline>
+            </MDBNavItem>
+
+            </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
     );
