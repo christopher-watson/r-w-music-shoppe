@@ -7,57 +7,63 @@ import API from "../utils/API";
 
 
 class NavbarPage extends Component {
-state = {
-  isOpen: false,
-  user: null,
-  loggedIn: false,
-  userInfo: null,
-  defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png'
-};
+  state = {
+    isOpen: false,
+    userID: null,
+    loggedIn: false,
+    userInfo: null,
+    defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png',
+    brubeck: '5c9b9ba2348c093988199509',
+    sonic: '5c9b9bd0348c09398819950a',
+    kv: '5c9b9b5f348c093988199508',
+    bowie: '5c9b9c1e348c09398819950b',
+    wutang: '5c9b9c49348c09398819950d',
+    otis: '5c9b9c39348c09398819950c',
+  };
 
-componentDidMount() {
-  this.userCheck()
-}
-
-toggleCollapse = () => {
-  this.setState({ isOpen: !this.state.isOpen });
-}
-
-login = () => {
-  API
-    .login()
-}
-
-logout = () => {
-  API
-    .logout()
-  this.setState({ loggedIn: false });
-}
-
-getUserInfo = (a) => {
-  API
-    .getUserInfo(a)
-    .then(res => {
-      console.log(res.data)
-      this.setState({ userInfo: res.data })
-    })
-}
-
-userCheck = () => {
-  const userID = window.location.href.split('?=')[1]
-  if(userID){
-    console.log(userID)
-    this.setState({ user: userID, loggedIn: true })
-    this.getUserInfo(userID)
+  componentDidMount() {
+    this.userCheck()
   }
-  else{
-    console.log("👎🏽");
+
+  toggleCollapse = () => {
+    this.setState({ isOpen: !this.state.isOpen });
   }
-}
+
+  login = () => {
+    API
+      .login()
+  }
+
+  logout = () => {
+    API
+      .logout()
+    this.setState({ loggedIn: false });
+  }
+
+  getUserInfo = (a) => {
+    API
+      .getUserInfo(a)
+      .then(res => {
+        console.log(res.data)
+        this.setState({ userInfo: res.data })
+      })
+  }
+
+  userCheck = () => {
+    const userID = window.location.href.split('?=')[1]
+    if(userID){
+      console.log(userID)
+      this.setState({ userID: userID, loggedIn: true })
+      this.getUserInfo(userID)
+    }
+    else{
+      console.log("👎🏽");
+    }
+  }
 
 
-render() {
-  return (
+  render() {
+    return (
       <MDBNavbar color="indigo" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">R-W Music Shoppe</strong>
