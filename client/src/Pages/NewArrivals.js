@@ -58,8 +58,6 @@ const NewArrivals = props => {
                   </MDBCard>
       
       
-      
-      
                   <MDBCard className="m-2" style={{ width: "22rem" }} cascade ecommerce wide>
                       <MDBCardImage cascade top src={SB}
                       waves />
