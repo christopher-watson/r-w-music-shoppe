@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 export default {
-  login: function(loginCreds) {
-    return axios.post('/api/users/login', loginCreds)
+  logout: function() {
+    return axios.get('http://localhost:3001/auth/logout')
   },
 
-  loginCheck: function() {
-    return axios.get('/api/users/login')
+  getUserInfo: function(userID) {
+    return axios.get(`/api/user/${userID}`)
   },
+  
 }

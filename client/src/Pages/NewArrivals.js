@@ -1,4 +1,4 @@
-import React, { Compomdbnent } from "react";
+import React, { Component } from "react";
 import { MDBIcon, MDBTooltip, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCardGroup, MDBContainer } from 'mdbreact';
 import TF from "../img/davebrubeck.jpg";
 import SB from "../img/sonics.jpg";
