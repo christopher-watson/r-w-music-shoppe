@@ -8,5 +8,9 @@ export default {
   getUserInfo: function(userID) {
     return axios.get(`/api/user/${userID}`)
   },
+
+  addToCart: function(userID, albumID) {
+    return axios.post(`/api/user/addalbum/${userID}`, albumID)
+  },
   
 }

@@ -30,5 +30,4 @@ router
   .put(userController.update)
 
 
-
 module.exports = router;
