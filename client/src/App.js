@@ -1,7 +1,7 @@
 // main react imports
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import Facebook from './components/Facebook';
 // containers
 // import Login from './containers/Login';
 // import Logout from "./containers/Logout";
