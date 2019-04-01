@@ -15,3 +15,20 @@
 .card-footer{
   height: 50px;
 }
+
+.cart-inner-text{
+  margin: auto 0;
+}
+
+.empty-cart{
+  text-align: center;
+  
+}
+
+.empty-cart > h1{
+  margin-top: 25%;
+}
+
+.pill-text{
+  padding: 10px 20px !important;
+}

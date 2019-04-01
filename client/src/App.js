@@ -4,10 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBTooltip, MDBJumbotron, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
 
 // containers
-// import Main from './Pages/Main';
-// import OnSale from './Pages/OnSale';
-// import Navbar from './components/Navbar'
-// import NewArrivals from './Pages/NewArrivals';
+// none
+
 
 // css/images
 import './App.css';
@@ -28,7 +26,8 @@ class MyProvider extends Component {
     userID: null,
     loggedIn: false,
     userInfo: null,
-    userCart: [],
+    albumInfo: [],
+    // userCart: [],
     defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png',
   };
 
@@ -38,10 +37,13 @@ class MyProvider extends Component {
   }
 
   addToCart = a => {
-    this.setState({
-      userCart: [...this.state.userCart, a]
-    })
+    console.log(`albumAdded ${a}`)
+    console.log(`userID ${this.state.userID}`)
+    API
+      .addToCart(this.state.userID, a)
+    this.getUserInfo(this.state.userID)
     console.log('added to cart')
+    this.getAlbumInfo()
   }
 
   logout = () => {
@@ -63,13 +65,33 @@ class MyProvider extends Component {
     const userID = window.location.href.split('?=')[1]
     if(userID){
       console.log(userID)
-      this.setState({ userID: userID, loggedIn: true })
+      this.setState({ userID: userID, loggedIn: true})
       this.getUserInfo(userID)
+      setTimeout(() => {
+        this.getAlbumInfo()
+      }, 500);
     }
     else{
       console.log("👎🏽");
     }
   }
+
+  getAlbumCount = () => {
+    return this.state.userInfo._albums.length
+  }
+
+  getAlbumInfo = () => {
+    console.log('getting album info..')
+    this.setState({ albumInfo: [] })
+    for (var i = 0; i < this.state.userInfo._albums.length; i++){
+      API
+        .getAlbumInfo(this.state.userInfo._albums[i])
+        .then(res => {
+          this.setState({ albumInfo: [...this.state.albumInfo, res.data] })
+        })
+    }
+  }
+
 
   render() {
     return (
@@ -78,12 +100,15 @@ class MyProvider extends Component {
         loggedIn: this.state.loggedIn,
         userInfo: this.state.userInfo,
         defaultImage: this.state.defaultImage,
-        userCart: this.state.userCart,
+        // userCart: this.state.userCart,
+        albumInfo: this.state.albumInfo,
         
         addToCart: this.addToCart,
         userCheck: this.userCheck,
         logout: this.logout,
         getUserInfo: this.getUserInfo,
+        getAlbumCount: this.getAlbumCount,
+        getAlbumInfo: this.getAlbumInfo,
         
       }}>
         {this.props.children}
@@ -102,17 +127,10 @@ class Navbar extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
-  // sendToCart = (e) => {
-  //   // e.preventDefault();
-  //   console.log('Send To Cart')
-  //   window.location='/Cart'
-  // }
-
-
   render() {
     return (
       <MyContext.Consumer>
-        {({ loggedIn, logout, userInfo, defaultImage, userCart }) => (
+        {({ loggedIn, logout, userInfo, defaultImage, getAlbumCount, getAlbumInfo}) => (
           <MDBNavbar color="indigo" dark expand="md">
             <MDBNavbarBrand>
               <strong className="white-text">R-W Music Shoppe</strong>
@@ -146,16 +164,24 @@ class Navbar extends Component {
 
                   :
                   <MDBNavItem>
-                    <MDBNavLink to="/Cart">
+                    <MDBNavLink to="/Cart" onClick={() => getAlbumInfo()}>
                       Cart
-                      <span> <MDBBadge color="danger" className="ml-2">{userCart.length}</MDBBadge></span>
+                      <span> 
+                      {
+                        userInfo != null
+                        ? <MDBBadge color="danger" className="ml-2">{getAlbumCount()}</MDBBadge>
+                        : <MDBBadge color="danger" className="ml-2">-</MDBBadge>
+                      }
+                      </span>
                     </MDBNavLink>
+                    {/* <button onClick={() => getAlbumInfo()}>CLICK</button> */}
                   </MDBNavItem>
                 }
               </MDBNavbarNav>
                 <MDBNavbarNav right>
                 { 
                   ! loggedIn 
+
                   ?
                   <MDBNavItem>
                     <MDBDropdown>
@@ -176,6 +202,7 @@ class Navbar extends Component {
                         </MDBDropdownMenu>
                     </MDBDropdown>
                   </MDBNavItem>
+                  
                   :
                   <MDBNavItem>
                     <MDBNavLink to="/" onClick={logout} className="mr-5">
@@ -203,6 +230,58 @@ class Navbar extends Component {
       </MyContext.Consumer>
     );
   }
+}
+
+// CART
+const Cart = () => {
+  return (
+    <MyContext.Consumer>
+      {({ loggedIn, albumInfo }) => (
+        <div className="cart-div">
+          {
+            !loggedIn
+
+            ? <div className="empty-cart"><h1>Log In to see Cart!</h1></div>
+              
+            : <div className="valid-cart">
+
+              {
+                albumInfo.length <= 0
+
+                ? <div className="empty-cart"><h1>Cart Empty!</h1></div>
+
+                : 
+                albumInfo.map(item => (
+                  <div className='valid-inner-cart' key={albumInfo.indexOf(item)}>
+                    <MDBCard>
+                      <MDBCardBody>
+                        <MDBRow>
+                          <MDBCol md="3">
+                            <MDBView hover rounded className="z-depth-1-half mb-4">
+                              <img
+                                className="img-fluid"
+                                src="https://mdbootstrap.com/img/Photos/Others/photo8.jpg"
+                                alt={item.art}
+                              />
+                            </MDBView>
+                          </MDBCol>
+                          <MDBCol md="9" className="cart-inner-text">
+                            <h2 className="font-weight-bold dark-grey-text"> {item.artist} - {item.title} </h2>
+                            <p>{item.price}</p>
+                            <MDBBadge className="pill-text" pill color="secondary">Remove</MDBBadge>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </div>
+                ))
+              }
+            </div>
+          }
+        </div>
+        )}
+    </MyContext.Consumer>
+  )
 }
 
 // RECORD COMPONENT
@@ -240,55 +319,6 @@ const Record = props => {
   );
 };
 
-// Cart PAGE
-const Cart = () => {
-  return (
-    <div className="cart-div">
-      <MyContext.Consumer>
-        {({ userCart }) => (
-          userCart.map(item => (
-            <div key={userCart.indexOf(item)}>
-              <MDBCard>
-                <MDBCardBody>
-                  <MDBRow>
-                    <MDBCol md="3">
-                      <MDBView hover rounded className="z-depth-1-half mb-4">
-                        <img
-                          className="img-fluid"
-                          src="https://mdbootstrap.com/img/Photos/Others/photo8.jpg"
-                          alt=""
-                        />
-                        {/* <a href="#!">
-                          <MDBMask overlay="white-slight" className="waves-light" />
-                        </a> */}
-                      </MDBView>
-                    </MDBCol>
-                    <MDBCol md="9">
-                      <p className="font-weight-bold dark-grey-text">
-                        19/08/2018
-                      </p>
-                      <div className="d-flex justify-content-between">
-                        <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                          <a href="#!" className="dark-grey-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit
-                          </a>
-                        </MDBCol>
-                        {/* <a href="#!">
-                          <MDBIcon icon="angle-double-right" />
-                        </a> */}
-                      </div>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-          ))
-        )}
-      </MyContext.Consumer>
-    </div>
-  )
-}
 
 // ONSALE PAGE
 const OnSale = () => {
