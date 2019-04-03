@@ -1,7 +1,6 @@
 // main react imports
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBTooltip, MDBJumbotron, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
 
 // containers
 // none
