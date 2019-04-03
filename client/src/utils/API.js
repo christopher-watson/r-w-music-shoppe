@@ -10,7 +10,13 @@ export default {
   },
 
   addToCart: function(userID, albumID) {
-    return axios.post(`/api/user/addalbum/${userID}`, albumID)
+    return axios.post(`/api/user/addalbum/${userID}`, {
+      _id: albumID
+    })
+  },
+  
+  getAlbumInfo: function(albumID) {
+    return axios.get(`/api/album/${albumID}`)
   },
   
 }
