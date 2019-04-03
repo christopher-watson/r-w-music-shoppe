@@ -46,9 +46,9 @@ class MyProvider extends Component {
   }
 
   logout = () => {
+    this.setState({ loggedIn: false });
     API
       .logout()
-    this.setState({ loggedIn: false });
   }
 
   getUserInfo = (a) => {
@@ -90,7 +90,6 @@ class MyProvider extends Component {
         })
     }
   }
-
 
   render() {
     return (
