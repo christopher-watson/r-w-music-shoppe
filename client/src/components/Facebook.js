@@ -5,7 +5,7 @@ import FacebookLogin from 'react-facebook-login';
 // https://www.youtube.com/watch?v=ea9KyE78qKI
 
 
-export default class Facebook extends Component {
+class Facebook extends Component {
     state = {
         isLogginIn: false,
         userID:"",
