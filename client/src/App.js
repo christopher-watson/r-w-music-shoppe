@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBTooltip, MDBJumbotron, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
+// import Facebook from './components/Facebook';
 
 // containers
 // none
@@ -192,9 +193,12 @@ class Navbar extends Component {
                             </MDBBtn>
                           </MDBDropdownItem>
                           <MDBDropdownItem>
-                            <MDBBtn className="login-button" outline color='primary' social="fbook">
+                            <MDBBtn className="login-button" outline color='primary' social="fbook" href='./components/Facebook'
+                        >
                               <MDBIcon fab icon="facebook-f" className="pr-1"/> Login with Facebook
                             </MDBBtn>
+                            {/* <Facebook/> */}
+
                           </MDBDropdownItem>
                         </MDBDropdownMenu>
                     </MDBDropdown>
@@ -302,20 +306,7 @@ const Record = props => {
             <span className="float-right">
               <MyContext.Consumer>
                 {({ addToCart, loggedIn }) => (
-                  <div className="div">
-                  {
-                    loggedIn ?
-                      <MDBBtn onClick={() => addToCart(props.id)} >
-                        <MDBIcon icon="cart-plus" id={props.id} />
-                        <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
-                      </MDBBtn>
-                    :
-                      <MDBBtn onClick={() => alert('Log In First .. 🙄')} >
-                        <MDBIcon icon="cart-plus" id={props.id} />
-                        <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
-                      </MDBBtn>
-                  }
-                  </div>
+
                 )}
               </MyContext.Consumer>
             </span>
