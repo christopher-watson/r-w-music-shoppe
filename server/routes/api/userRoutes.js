@@ -7,12 +7,17 @@ const userController = require('../../controllers/userController');
 router
   .route("/create")
   // .get(userController.findAll)
-  .post(userController.create);
+  .post(userController.create)
 
 // Matches with "/api/user/addalbum/:id"
 router
   .route('/addalbum/:id')
-  .post(userController.addAlbum);
+  .post(userController.addAlbum)
+
+// Matches with "/api/user/removealbum/:id"
+router
+  .route('/removealbum/:id')
+  .post(userController.removeAlbum)
 
 
 // -- /api/user/authSuccess
