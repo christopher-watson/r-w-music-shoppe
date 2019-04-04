@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class Cart extends Component {
-  render() {
-    return (
-      <div>
+// class Cart extends Component {
+//   render() {
+//     return (
+//       <div>
 
-      </div>
-    );
-  }
-}
+//       </div>
+//     );
+//   }
+// }
 
-export default Cart;
+// export default Cart;
