@@ -30,7 +30,7 @@ class MyProvider extends Component {
     albumInfo: [],
     // userCart: [],
     defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png',
-  };
+  }
 
   componentDidMount() {
     console.log('mounted')
@@ -148,9 +148,7 @@ class Navbar extends Component {
                   <MDBNavLink to="/OnSale">On Sale</MDBNavLink>
                 </MDBNavItem>
                 {
-                  ! loggedIn
-
-                  ?                 
+                  !loggedIn ?                 
                   <MDBNavItem>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret>
@@ -231,7 +229,7 @@ class Navbar extends Component {
           </MDBNavbar>
         )}
       </MyContext.Consumer>
-    );
+    )
   }
 }
 
@@ -308,10 +306,7 @@ const Record = props => {
             <span className="float-right">
               <MyContext.Consumer>
                 {({ addToCart, loggedIn }) => (
-                  <MDBBtn onClick={() => addToCart(props.id)} >
-                    <MDBIcon icon="cart-plus" id={props.id} />
-                    <MDBTooltip placement="top" componentClass="cart-plus" tag="a" component="i" tooltipContent="Added to Cart" />
-                  </MDBBtn>
+
                 )}
               </MyContext.Consumer>
             </span>
@@ -319,8 +314,8 @@ const Record = props => {
         </MDBCardFooter>
       </MDBCardBody>
     </MDBCard>
-  );
-};
+  )
+}
 
 
 // ONSALE PAGE
@@ -346,7 +341,7 @@ const NewArrivals = () => {
         <Record title='Take Five' artist='The Dave Brubeck Quartet' text='here too' image={TF} price='25' id='5c9b9ba2348c093988199509' />
       </MDBCardGroup>
     </MDBContainer>
-  );
+  )
 }
 
 // MAIN PAGE

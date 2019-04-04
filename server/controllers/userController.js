@@ -30,6 +30,20 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  removeAlbum: function(req, res) {
+    // console.log(req.params.id)
+    db
+      .User
+      .findOneAndUpdate(
+        {_id: req.params.id},
+        {$pull: {_albums: {_id: req.body}}},
+        // console.log(req.body)
+        // {safe: true, upsert: true},
+      )
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   
   update: function (req, res) {
     db
