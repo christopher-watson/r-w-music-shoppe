@@ -241,7 +241,7 @@ const Cart = () => {
           {
             !loggedIn
 
-            ? <div className="empty-cart"><h1>Log In to see Cart!</h1></div>
+            ? <div className="empty-cart"><h1>Login to see the Cart!</h1></div>
               
             : <div className="valid-cart">
 
