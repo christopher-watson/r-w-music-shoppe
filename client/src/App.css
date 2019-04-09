@@ -93,3 +93,11 @@
 .card-footer{
   height: 50px;
 }
+
+.cart-button{
+  background-color: red;
+  color: white;
+  border-radius: 25%;
+  padding: 10px 20px;
+  font-size: 20px;
+}

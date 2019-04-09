@@ -309,9 +309,9 @@ const Record = props => {
                     {
                       loggedIn
 
-                      ? <button onClick={() => addToCart(props.id)}>CART</button>
+                      ? <button className="cart-button" onClick={() => addToCart(props.id)}><i class="fas fa-cart-arrow-down"></i></button>
 
-                      : <button>CART</button>
+                      : <button className="cart-button"><i class="fas fa-cart-arrow-down"></i></button>
 
                     }
                   </div>
