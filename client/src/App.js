@@ -7,7 +7,6 @@ import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCard
 // containers
 // none
 
-
 // css/images
 import './App.css';
 import TF from "./img/davebrubeck.jpg";
@@ -242,7 +241,7 @@ const Cart = () => {
           {
             !loggedIn
 
-            ? <div className="empty-cart"><h1>Log In to see Cart!</h1></div>
+            ? <div className="empty-cart"><h1>Login to see the Cart!</h1></div>
               
             : <div className="valid-cart">
 
@@ -306,7 +305,16 @@ const Record = props => {
             <span className="float-right">
               <MyContext.Consumer>
                 {({ addToCart, loggedIn }) => (
+                  <div>
+                    {
+                      loggedIn
 
+                      ? <button className="cart-button" onClick={() => addToCart(props.id)}><i class="fas fa-cart-arrow-down"></i></button>
+
+                      : <button className="cart-button"><i class="fas fa-cart-arrow-down"></i></button>
+
+                    }
+                  </div>
                 )}
               </MyContext.Consumer>
             </span>
@@ -336,9 +344,9 @@ const NewArrivals = () => {
   return (
     // <MDBContainer>
       <MDBCardGroup deck>
-        <Record title='Kvelertak' artist='Kvelertak' text='I erased this and forgot what you wrote, sorry' image={KV} price='25' id='5c9b9b5f348c093988199508' />
-        <Record title='Boom!' artist='The Sonics' text='same here' image={SB} price='25' id='5c9b9bd0348c09398819950a' />
-        <Record title='Take Five' artist='The Dave Brubeck Quartet' text='here too' image={TF} price='25' id='5c9b9ba2348c093988199509' />
+        <Record title='Kvelertak' artist='Kvelertak' text='The eponymous debut album by the Norwegian band Kvelertak' image={KV} price='25' id='5c9b9b5f348c093988199508' />
+        <Record title='Boom!' artist='The Sonics' text='The second studio album by the American garage rock band' image={SB} price='25' id='5c9b9bd0348c09398819950a' />
+        <Record title='Take Five' artist='The Dave Brubeck Quartet' text='The piece has been a staple of jazz and pop music since it was first released.' image={TF} price='25' id='5c9b9ba2348c093988199509' />
       </MDBCardGroup>
     // </MDBContainer>
   )
