@@ -109,3 +109,16 @@
 .remove{
   cursor: pointer;
 }
+
+.privacy-link{
+  color: #2BBBAC;
+  background: black;
+  padding: 5px 10px;
+  border-radius: 25px;
+  margin-top: 10px;
+}
+
+.privacy-link:hover{
+  opacity: .5;
+  color: #2BBBAC;
+}
