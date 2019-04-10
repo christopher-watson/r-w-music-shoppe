@@ -382,6 +382,7 @@ const Main = () => {
               <h1 className="text-center"><strong>Welcome to R & W Music Shoppe</strong></h1>
               <h2 className="text-center">Definitely better than Amazon</h2>
               <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
+              <a className="privacy-link" href="https://www.freeprivacypolicy.com/privacy/view/a0236deade548a16cd56a226af6e86d1" target="_blank">Privacy Policy</a>
             </div>
           </div>
         </div>
