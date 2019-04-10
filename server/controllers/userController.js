@@ -37,23 +37,30 @@ module.exports = {
       .User
       .findOneAndUpdate(
         {_id: req.params.id},
-        {$pull: {_albums: {_id: req.body}}},
-        // console.log(req.body)
-        // {safe: true, upsert: true},
+        {$pull: {_albums: req.body.id}},
+        {multi: false},
+        console.log(req.body)
       )
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   
-  update: function (req, res) {
-    db
-      .User
-      .findOneAndUpdate({
-        _id: req.params.id
-      }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  loginCheck: function() {
+    console.log(sessionStorage)
   },
+
+  
+
+
+  // update: function (req, res) {
+  //   db
+  //     .User
+  //     .findOneAndUpdate({
+  //       _id: req.params.id
+  //     }, req.body)
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
 
   // findByUserName: function (req, res) {
   //   db

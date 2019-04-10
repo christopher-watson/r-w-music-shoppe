@@ -1,12 +1,11 @@
 // main react imports
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBTooltip, MDBJumbotron, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
+import { MDBCardGroup, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
 // import Facebook from './components/Facebook';
 
 // containers
 // none
-
 
 // css/images
 import './App.css';
@@ -19,6 +18,7 @@ import OR from "./img/otis.jpg";
 
 // backend integration
 import API from "./utils/API";
+
 
 // context
 const MyContext = React.createContext();
@@ -57,7 +57,7 @@ class MyProvider extends Component {
     API
       .getUserInfo(a)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setState({ userInfo: res.data })
       })
   }
@@ -93,6 +93,22 @@ class MyProvider extends Component {
     }
   }
 
+  removeCartItem = (a) => {
+    API
+      .removeFromCart(this.state.userID, a)
+      .then( () => {
+        this.getUserInfo(this.state.userID)
+      })
+      .then( () => {
+        this.getAlbumInfo()
+        console.log('RM Item get album info')
+      })
+      .then( () => {
+        // window.location.reload()
+      })
+
+  }
+
   render() {
     return (
       <MyContext.Provider value={{
@@ -109,6 +125,7 @@ class MyProvider extends Component {
         getUserInfo: this.getUserInfo,
         getAlbumCount: this.getAlbumCount,
         getAlbumInfo: this.getAlbumInfo,
+        removeCartItem: this.removeCartItem,
         
       }}>
         {this.props.children}
@@ -217,9 +234,9 @@ class Navbar extends Component {
                   </MDBNavItem>
                 }
                 <MDBNavItem>
-                  <MDBFormInline waves>
+                  <MDBFormInline>
                     <div className="md-form my-0">
-                      <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                      <input disabled className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
                     </div>
                   </MDBFormInline>
                 </MDBNavItem>
@@ -237,17 +254,17 @@ class Navbar extends Component {
 const Cart = () => {
   return (
     <MyContext.Consumer>
-      {({ loggedIn, albumInfo }) => (
+      {({ loggedIn, albumInfo, removeCartItem, userInfo }) => (
         <div className="cart-div">
           {
             !loggedIn
 
-            ? <div className="empty-cart"><h1>Log In to see Cart!</h1></div>
+            ? <div className="empty-cart"><h1>Login to see the Cart!</h1></div>
               
             : <div className="valid-cart">
 
               {
-                albumInfo.length <= 0
+                userInfo._albums <= 0 
 
                 ? <div className="empty-cart"><h1>Cart Empty!</h1></div>
 
@@ -260,22 +277,23 @@ const Cart = () => {
                           <MDBCol md="3">
                             <MDBView hover rounded className="z-depth-1-half mb-4">
                               <img
-                                className="img-fluid"
-                                src="https://mdbootstrap.com/img/Photos/Others/photo8.jpg"
-                                alt={item.art}
+                                className="img-fluid album-art"
+                                src={item.art}
+                                alt={item.artist}
                               />
                             </MDBView>
                           </MDBCol>
                           <MDBCol md="9" className="cart-inner-text">
                             <h2 className="font-weight-bold dark-grey-text"> {item.artist} - {item.title} </h2>
-                            <p>{item.price}</p>
-                            <MDBBadge className="pill-text" pill color="secondary">Remove</MDBBadge>
+                            <p className="record-price">${item.price}</p>
+                            <MDBBadge className="pill-text remove" pill color="secondary" onClick={() => removeCartItem(item._id)}>Remove</MDBBadge>
                           </MDBCol>
                         </MDBRow>
                       </MDBCardBody>
                     </MDBCard>
                   </div>
                 ))
+
               }
             </div>
           }
@@ -306,7 +324,16 @@ const Record = props => {
             <span className="float-right">
               <MyContext.Consumer>
                 {({ addToCart, loggedIn }) => (
+                  <div>
+                    {
+                      loggedIn
 
+                      ? <button className="cart-button" onClick={() => addToCart(props.id)}><i className="fas fa-cart-arrow-down"></i></button>
+
+                      : <button className="cart-button"><i className="fas fa-cart-arrow-down"></i></button>
+
+                    }
+                  </div>
                 )}
               </MyContext.Consumer>
             </span>
@@ -321,39 +348,45 @@ const Record = props => {
 // ONSALE PAGE
 const OnSale = () => {
   return (
-    <MDBContainer>
+    // <MDBContainer>
       <MDBCardGroup deck>
         <Record title='Ziggy Stardust' artist='David Bowie' text='A must own! On sale Now!' image={DB} price='19' id='5c9b9c1e348c09398819950b' />
         <Record title='36 Chambers' artist='Wu-Tang CLan' text='A must own! On sale Now!' image={WT} price='19' id='5c9b9c49348c09398819950d' />
         <Record title='Otis Redding' artist='Otis Redding' text='A must own! On sale Now!' image={OR} price='19'  id='5c9b9c39348c09398819950c' />
       </MDBCardGroup>
-    </MDBContainer>
+    // </MDBContainer>
   )
 }
 
 // NEW ARRIVALS PAGE
 const NewArrivals = () => {
   return (
-    <MDBContainer>
+    // <MDBContainer>
       <MDBCardGroup deck>
-        <Record title='Kvelertak' artist='Kvelertak' text='I erased this and forgot what you wrote, sorry' image={KV} price='25' id='5c9b9b5f348c093988199508' />
-        <Record title='Boom!' artist='The Sonics' text='same here' image={SB} price='25' id='5c9b9bd0348c09398819950a' />
-        <Record title='Take Five' artist='The Dave Brubeck Quartet' text='here too' image={TF} price='25' id='5c9b9ba2348c093988199509' />
+        <Record title='Kvelertak' artist='Kvelertak' text='The eponymous debut album by the Norwegian band Kvelertak' image={KV} price='25' id='5c9b9b5f348c093988199508' />
+        <Record title='Boom!' artist='The Sonics' text='The second studio album by the American garage rock band' image={SB} price='25' id='5c9b9bd0348c09398819950a' />
+        <Record title='Take Five' artist='The Dave Brubeck Quartet' text='The piece has been a staple of jazz and pop music since it was first released.' image={TF} price='25' id='5c9b9ba2348c093988199509' />
       </MDBCardGroup>
-    </MDBContainer>
+    // </MDBContainer>
   )
 }
 
 // MAIN PAGE
 const Main = () => {
   return (
-    <MDBJumbotron>
-      <MDBContainer>
-        <h1 className="text-center"><strong>Welcome to R & W Music Shoppe</strong></h1>
-        <h2 className="text-center">Definitely better than Amazon</h2>
-        <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
-      </MDBContainer>
-    </MDBJumbotron>
+    // <MDBJumbotron>
+      // <MDBContainer>
+        <div className="inner-container">
+          <div className="bg-container">
+            <div className="inner-main-content">
+              <h1 className="text-center"><strong>Welcome to R & W Music Shoppe</strong></h1>
+              <h2 className="text-center">Definitely better than Amazon</h2>
+              <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
+            </div>
+          </div>
+        </div>
+      // </MDBContainer>
+    // </MDBJumbotron>
   )
 }
 
@@ -365,14 +398,16 @@ class App extends Component{
         <Router>
           <div className="main-container">
             <Navbar /> 
-            <Switch>
-              <Route exact path="/" component={Main} />
-              <Route exact path="/Main" component={Main} />
-              <Route exact path="/OnSale" component={OnSale} />
-              <Route exact path="/NewArrivals" component={NewArrivals} />
-              <Route exact path="/Cart" component={Cart} />
-              <Route component={Main} />
-            </Switch>
+            <div className="content">
+              <Switch>
+                <Route exact path="/" component={Main} />
+                <Route exact path="/Main" component={Main} />
+                <Route exact path="/OnSale" component={OnSale} />
+                <Route exact path="/NewArrivals" component={NewArrivals} />
+                <Route exact path="/Cart" component={Cart} />
+                <Route component={Main} />
+              </Switch>
+            </div>
           </div>
         </Router>
       </MyProvider>
