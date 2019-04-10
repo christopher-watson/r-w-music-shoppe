@@ -101,3 +101,11 @@
   padding: 10px 20px;
   font-size: 20px;
 }
+
+.record-price{
+  font-size: 20px;
+}
+
+.remove{
+  cursor: pointer;
+}

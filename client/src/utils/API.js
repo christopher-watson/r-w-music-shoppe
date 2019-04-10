@@ -18,5 +18,11 @@ export default {
   getAlbumInfo: function(albumID) {
     return axios.get(`/api/album/${albumID}`)
   },
+
+  removeFromCart: function(userID, albumID) {
+    return axios.put(`/api/user/removealbum/${userID}`, {
+      id: albumID
+    })
+  },
   
 }

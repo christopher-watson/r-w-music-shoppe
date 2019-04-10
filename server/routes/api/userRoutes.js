@@ -17,7 +17,7 @@ router
 // Matches with "/api/user/removealbum/:id"
 router
   .route('/removealbum/:id')
-  .post(userController.removeAlbum)
+  .put(userController.removeAlbum)
 
 
 // -- /api/user/authSuccess
@@ -28,11 +28,17 @@ router
     console.log(res.user)
   })
 
+// -- /api/user/loginStatus
+router
+  .route('/loginStatus')
+  .get(userController.loginCheck)
+
+
 // -- /api/user/:id"
 router
   .route('/:id')
   .get(userController.findById)
-  .put(userController.update)
+  // .put(userController.update)
 
 
 module.exports = router;

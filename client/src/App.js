@@ -1,7 +1,7 @@
 // main react imports
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MDBCardGroup, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBTooltip, MDBJumbotron, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
+import { MDBCardGroup, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
 // import Facebook from './components/Facebook';
 
 // containers
@@ -18,6 +18,7 @@ import OR from "./img/otis.jpg";
 
 // backend integration
 import API from "./utils/API";
+
 
 // context
 const MyContext = React.createContext();
@@ -92,6 +93,22 @@ class MyProvider extends Component {
     }
   }
 
+  removeCartItem = (a) => {
+    API
+      .removeFromCart(this.state.userID, a)
+      .then( () => {
+        this.getUserInfo(this.state.userID)
+      })
+      .then( () => {
+        this.getAlbumInfo()
+        console.log('RM Item get album info')
+      })
+      .then( () => {
+        // window.location.reload()
+      })
+
+  }
+
   render() {
     return (
       <MyContext.Provider value={{
@@ -108,6 +125,7 @@ class MyProvider extends Component {
         getUserInfo: this.getUserInfo,
         getAlbumCount: this.getAlbumCount,
         getAlbumInfo: this.getAlbumInfo,
+        removeCartItem: this.removeCartItem,
         
       }}>
         {this.props.children}
@@ -236,7 +254,7 @@ class Navbar extends Component {
 const Cart = () => {
   return (
     <MyContext.Consumer>
-      {({ loggedIn, albumInfo }) => (
+      {({ loggedIn, albumInfo, removeCartItem, userInfo }) => (
         <div className="cart-div">
           {
             !loggedIn
@@ -246,7 +264,7 @@ const Cart = () => {
             : <div className="valid-cart">
 
               {
-                albumInfo.length <= 0
+                userInfo._albums <= 0 
 
                 ? <div className="empty-cart"><h1>Cart Empty!</h1></div>
 
@@ -267,14 +285,15 @@ const Cart = () => {
                           </MDBCol>
                           <MDBCol md="9" className="cart-inner-text">
                             <h2 className="font-weight-bold dark-grey-text"> {item.artist} - {item.title} </h2>
-                            <p>{item.price}</p>
-                            <MDBBadge className="pill-text" pill color="secondary">Remove</MDBBadge>
+                            <p className="record-price">${item.price}</p>
+                            <MDBBadge className="pill-text remove" pill color="secondary" onClick={() => removeCartItem(item._id)}>Remove</MDBBadge>
                           </MDBCol>
                         </MDBRow>
                       </MDBCardBody>
                     </MDBCard>
                   </div>
                 ))
+
               }
             </div>
           }
@@ -309,9 +328,9 @@ const Record = props => {
                     {
                       loggedIn
 
-                      ? <button className="cart-button" onClick={() => addToCart(props.id)}><i class="fas fa-cart-arrow-down"></i></button>
+                      ? <button className="cart-button" onClick={() => addToCart(props.id)}><i className="fas fa-cart-arrow-down"></i></button>
 
-                      : <button className="cart-button"><i class="fas fa-cart-arrow-down"></i></button>
+                      : <button className="cart-button"><i className="fas fa-cart-arrow-down"></i></button>
 
                     }
                   </div>
