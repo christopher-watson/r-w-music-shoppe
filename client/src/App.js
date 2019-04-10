@@ -57,7 +57,7 @@ class MyProvider extends Component {
     API
       .getUserInfo(a)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setState({ userInfo: res.data })
       })
   }
