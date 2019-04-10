@@ -234,9 +234,9 @@ class Navbar extends Component {
                   </MDBNavItem>
                 }
                 <MDBNavItem>
-                  <MDBFormInline waves>
+                  <MDBFormInline>
                     <div className="md-form my-0">
-                      <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                      <input disabled className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
                     </div>
                   </MDBFormInline>
                 </MDBNavItem>
