@@ -15,7 +15,14 @@ app.use(bodyParser.json());
 app.use(morgan('dev')); // for logging
 
 // Use sessions to keep track of user login status
-app.use(session({secret: "mastadon", resave: true, saveUninitialized: true}));
+app.use(session({
+    secret: "mastadon", 
+    resave: true, 
+    saveUninitialized: true, 
+    // cookie: {
+    //     maxAge: 2419200000 
+    // },
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
