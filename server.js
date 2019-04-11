@@ -6,12 +6,14 @@ const morgan = require('morgan');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require("cors");
 
 // Set up Express
 const app = express();
 const PORT = 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(morgan('dev')); // for logging
 
 // Use sessions to keep track of user login status
@@ -88,6 +90,23 @@ passport.use(
         });
     })
 );
+
+// Stripe
+const stripe = require("stripe")(process.env.STRIPE_SK);
+app.post("/charge", async (req, res) => {
+    try {
+      let {status} = await stripe.charges.create({
+        amount: 2000,
+        currency: "usd",
+        description: "An example charge",
+        source: req.body
+      });
+      res.json({status});
+    } catch (err) {
+      res.status(500).end();
+    }
+  });
+
 
 
 // Start the API server
