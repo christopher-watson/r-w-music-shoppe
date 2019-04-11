@@ -2,6 +2,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MDBCardGroup, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBView, MDBBadge, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import CheckoutForm from './components/CheckoutForm';
+// import Stripe from './components/Stripe';
+
 // import Facebook from './components/Facebook';
 
 // containers
@@ -348,23 +352,27 @@ class Checkout extends Component {
   
   render() {
     return (
-      <MyContext.Consumer>
-        {({ getCartTotal, cartTotal, albumInfo }) => (
-          <MDBContainer>
-            <MDBBtn color="primary" onClick={this.toggle(14)} onMouseOver={() => getCartTotal()}>Check Out!</MDBBtn>
-            <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
-              <MDBModalHeader toggle={this.toggle(14)}>Cart Summary</MDBModalHeader>
-              <MDBModalBody>
-                ${cartTotal}
-              </MDBModalBody>
-              <MDBModalFooter>
-                <MDBBtn color="secondary" onClick={this.toggle(14)}>Close</MDBBtn>
-                <MDBBtn color="primary">Save changes</MDBBtn>
-              </MDBModalFooter>
-            </MDBModal>
-          </MDBContainer>
-        )}
-      </MyContext.Consumer>
+      <StripeProvider apiKey='pk_test_vWgqhqyNhFUgYBXOKkiNNws000MS8zEbLi'>
+        <MyContext.Consumer>
+          {({ getCartTotal, cartTotal, albumInfo }) => (
+            <MDBContainer>
+              <MDBBtn color="primary" onClick={this.toggle(14)} onMouseOver={() => getCartTotal()}>Check Out!</MDBBtn>
+              <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+                <MDBModalHeader toggle={this.toggle(14)}>Cart Total: ${cartTotal}</MDBModalHeader>
+                <MDBModalBody>
+                  <Elements>
+                    <CheckoutForm/>
+                    {/* <Stripe/> */}
+                  </Elements>
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <MDBBtn color="danger" onClick={this.toggle(14)}>Cancel</MDBBtn>
+                </MDBModalFooter>
+              </MDBModal>
+            </MDBContainer>
+          )}
+        </MyContext.Consumer>
+      </StripeProvider>
       )
     }
   }
