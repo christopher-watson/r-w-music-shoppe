@@ -122,3 +122,17 @@
   opacity: .5;
   color: #2BBBAC;
 }
+
+.checkout-div{
+  position: absolute;
+  right: 2%;
+  top: 12%;
+}
+
+/* .checkout-div[visible=false]{
+  display: none;
+}
+
+.checkout-div[visible=true]{
+  display: contents;
+} */
