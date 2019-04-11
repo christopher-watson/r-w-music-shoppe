@@ -96,7 +96,7 @@ const stripe = require("stripe")(process.env.STRIPE_SK);
 app.post("/charge", async (req, res) => {
     try {
       let {status} = await stripe.charges.create({
-        amount: 2000,
+        amount: 200,
         currency: "usd",
         description: "An example charge",
         source: req.body
@@ -106,8 +106,6 @@ app.post("/charge", async (req, res) => {
       res.status(500).end();
     }
   });
-
-
 
 // Start the API server
 app.listen(PORT, function() {
