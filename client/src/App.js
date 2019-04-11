@@ -1,7 +1,7 @@
 // main react imports
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MDBCardGroup, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBView, MDBBadge } from 'mdbreact';
+import { MDBCardGroup, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCardFooter, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBView, MDBBadge, MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 // import Facebook from './components/Facebook';
 
 // containers
@@ -30,6 +30,8 @@ class MyProvider extends Component {
     albumInfo: [],
     // userCart: [],
     defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png',
+    hasItemsInCart: false,
+    cartTotal: 0,
   }
 
   componentDidMount() {
@@ -45,6 +47,7 @@ class MyProvider extends Component {
     this.getUserInfo(this.state.userID)
     console.log('added to cart')
     this.getAlbumInfo()
+    this.getCartItems()
   }
 
   logout = () => {
@@ -70,6 +73,7 @@ class MyProvider extends Component {
       this.getUserInfo(userID)
       setTimeout(() => {
         this.getAlbumInfo()
+        this.getCartItems()
       }, 500);
     }
     else{
@@ -79,6 +83,16 @@ class MyProvider extends Component {
 
   getAlbumCount = () => {
     return this.state.userInfo._albums.length
+  }
+
+  getCartItems = () => {
+    console.log(`cartItems: ${this.state.userInfo._albums.length}`)
+    if(this.state.userInfo._albums.length > 0){
+      this.setState({ hasItemsInCart: true })
+    }
+    else{
+      this.setState({ hasItemsInCart: false })
+    }
   }
 
   getAlbumInfo = () => {
@@ -91,9 +105,11 @@ class MyProvider extends Component {
           this.setState({ albumInfo: [...this.state.albumInfo, res.data] })
         })
     }
+    this.getCartItems()
   }
 
   removeCartItem = (a) => {
+    this.getCartItems()
     API
       .removeFromCart(this.state.userID, a)
       .then( () => {
@@ -101,12 +117,19 @@ class MyProvider extends Component {
       })
       .then( () => {
         this.getAlbumInfo()
-        console.log('RM Item get album info')
+        console.log('RM Item && get album info')
+        this.getCartItems()
       })
-      .then( () => {
-        // window.location.reload()
-      })
+  }
 
+  getCartTotal = () => {
+    console.log('totaling...')
+    let total = 0;
+    this.state.albumInfo.forEach(x => {
+      total += x.price
+    })
+    console.log(`total: ${total}`)
+    this.setState({ cartTotal: total })
   }
 
   render() {
@@ -118,6 +141,8 @@ class MyProvider extends Component {
         defaultImage: this.state.defaultImage,
         // userCart: this.state.userCart,
         albumInfo: this.state.albumInfo,
+        hasItemsInCart: this.state.hasItemsInCart,
+        cartTotal: this.state.cartTotal,
         
         addToCart: this.addToCart,
         userCheck: this.userCheck,
@@ -126,6 +151,7 @@ class MyProvider extends Component {
         getAlbumCount: this.getAlbumCount,
         getAlbumInfo: this.getAlbumInfo,
         removeCartItem: this.removeCartItem,
+        getCartTotal: this.getCartTotal,
         
       }}>
         {this.props.children}
@@ -189,7 +215,6 @@ class Navbar extends Component {
                       }
                       </span>
                     </MDBNavLink>
-                    {/* <button onClick={() => getAlbumInfo()}>CLICK</button> */}
                   </MDBNavItem>
                 }
               </MDBNavbarNav>
@@ -214,7 +239,6 @@ class Navbar extends Component {
                         >
                               <MDBIcon fab icon="facebook-f" className="pr-1"/> Login with Facebook
                             </MDBBtn>
-                            {/* <Facebook/> */}
 
                           </MDBDropdownItem>
                         </MDBDropdownMenu>
@@ -240,8 +264,7 @@ class Navbar extends Component {
                     </div>
                   </MDBFormInline>
                 </MDBNavItem>
-
-                </MDBNavbarNav>
+              </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
         )}
@@ -254,7 +277,7 @@ class Navbar extends Component {
 const Cart = () => {
   return (
     <MyContext.Consumer>
-      {({ loggedIn, albumInfo, removeCartItem, userInfo }) => (
+      {({ loggedIn, albumInfo, removeCartItem, userInfo, hasItemsInCart }) => (
         <div className="cart-div">
           {
             !loggedIn
@@ -262,39 +285,47 @@ const Cart = () => {
             ? <div className="empty-cart"><h1>Login to see the Cart!</h1></div>
               
             : <div className="valid-cart">
+                {
+                  hasItemsInCart
 
-              {
-                userInfo._albums <= 0 
+                  ? <div className="checkout-div"><Checkout/></div>
 
-                ? <div className="empty-cart"><h1>Cart Empty!</h1></div>
+                  : <div></div>
 
-                : 
-                albumInfo.map(item => (
-                  <div className='valid-inner-cart' key={albumInfo.indexOf(item)}>
-                    <MDBCard>
-                      <MDBCardBody>
-                        <MDBRow>
-                          <MDBCol md="3">
-                            <MDBView hover rounded className="z-depth-1-half mb-4">
-                              <img
-                                className="img-fluid album-art"
-                                src={item.art}
-                                alt={item.artist}
-                              />
-                            </MDBView>
-                          </MDBCol>
-                          <MDBCol md="9" className="cart-inner-text">
-                            <h2 className="font-weight-bold dark-grey-text"> {item.artist} - {item.title} </h2>
-                            <p className="record-price">${item.price}</p>
-                            <MDBBadge className="pill-text remove" pill color="secondary" onClick={() => removeCartItem(item._id)}>Remove</MDBBadge>
-                          </MDBCol>
-                        </MDBRow>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </div>
-                ))
+                }
 
-              }
+                {
+                  userInfo._albums <= 0 
+
+                  ? <div className="empty-cart"><h1>Cart Empty!</h1></div>
+
+                  : 
+                  albumInfo.map(item => (
+                    <div className='valid-inner-cart' key={albumInfo.indexOf(item)}>
+                      <MDBCard>
+                        <MDBCardBody>
+                          <MDBRow>
+                            <MDBCol md="3">
+                              <MDBView hover rounded className="z-depth-1-half mb-4">
+                                <img
+                                  className="img-fluid album-art"
+                                  src={item.art}
+                                  alt={item.artist}
+                                />
+                              </MDBView>
+                            </MDBCol>
+                            <MDBCol md="9" className="cart-inner-text">
+                              <h2 className="font-weight-bold dark-grey-text"> {item.artist} - {item.title} </h2>
+                              <p className="record-price">${item.price}</p>
+                              <MDBBadge className="pill-text remove" pill color="secondary" onClick={() => removeCartItem(item._id)}>Remove</MDBBadge>
+                            </MDBCol>
+                          </MDBRow>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </div>
+                  ))
+
+                }
             </div>
           }
         </div>
@@ -302,6 +333,41 @@ const Cart = () => {
     </MyContext.Consumer>
   )
 }
+
+class Checkout extends Component {
+  state = {
+    modal14: false
+  }
+  
+  toggle = nr => () => {
+    let modalNumber = 'modal' + nr
+    this.setState({
+      [modalNumber]: !this.state[modalNumber]
+    });
+  }
+  
+  render() {
+    return (
+      <MyContext.Consumer>
+        {({ getCartTotal, cartTotal, albumInfo }) => (
+          <MDBContainer>
+            <MDBBtn color="primary" onClick={this.toggle(14)} onMouseOver={() => getCartTotal()}>Check Out!</MDBBtn>
+            <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered>
+              <MDBModalHeader toggle={this.toggle(14)}>Cart Summary</MDBModalHeader>
+              <MDBModalBody>
+                ${cartTotal}
+              </MDBModalBody>
+              <MDBModalFooter>
+                <MDBBtn color="secondary" onClick={this.toggle(14)}>Close</MDBBtn>
+                <MDBBtn color="primary">Save changes</MDBBtn>
+              </MDBModalFooter>
+            </MDBModal>
+          </MDBContainer>
+        )}
+      </MyContext.Consumer>
+      )
+    }
+  }
 
 // RECORD COMPONENT
 const Record = props => {
@@ -331,7 +397,6 @@ const Record = props => {
                       ? <button className="cart-button" onClick={() => addToCart(props.id)}><i className="fas fa-cart-arrow-down"></i></button>
 
                       : <button className="cart-button"><i className="fas fa-cart-arrow-down"></i></button>
-
                     }
                   </div>
                 )}
@@ -382,7 +447,7 @@ const Main = () => {
               <h1 className="text-center"><strong>Welcome to R & W Music Shoppe</strong></h1>
               <h2 className="text-center">Definitely better than Amazon</h2>
               <MDBBtn className="btn-center" href="/NewArrivals"> Our New Arrivals!</MDBBtn>
-              <a className="privacy-link" href="https://www.freeprivacypolicy.com/privacy/view/a0236deade548a16cd56a226af6e86d1" target="_blank">Privacy Policy</a>
+              <a className="privacy-link" href="https://www.freeprivacypolicy.com/privacy/view/a0236deade548a16cd56a226af6e86d1" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
             </div>
           </div>
         </div>
