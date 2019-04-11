@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {CardElement, injectStripe} from 'react-stripe-elements';
+import { MDBBtn } from 'mdbreact';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class CheckoutForm extends Component {
       <div className="checkout">
         <p className="checkout-text">Complete Purchase</p>
         <CardElement />
-        <button className="checkout-button" onClick={this.submit}>Purchase</button>
+        <MDBBtn className="checkout-button" onClick={this.submit}>Purchase</MDBBtn>
       </div>
     );
   }
