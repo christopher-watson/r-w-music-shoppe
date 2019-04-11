@@ -122,3 +122,28 @@
   opacity: .5;
   color: #2BBBAC;
 }
+
+.checkout-div{
+  position: absolute;
+  right: 2%;
+  top: 12%;
+}
+
+.checkout-text{
+  font-size: 15px;
+}
+
+.checkout-button{
+  color: #F5FDFF;
+  background-color: #81C341;
+  border-radius: 25px;
+  border: 1px solid #81C359;
+  padding: 5px 10px;
+  margin-top: 20px;
+  margin-left: 77%;
+  right: 0;
+}
+
+.checkout-button:hover{
+  box-shadow: 0px 0px 3px green;
+}
