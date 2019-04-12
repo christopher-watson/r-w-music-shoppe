@@ -39,6 +39,7 @@ export class MyProvider extends Component {
 
   componentDidMount() {
     console.log('mounted')
+    console.log(React.version)
     this.userCheck();
   }
 
