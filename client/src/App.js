@@ -23,10 +23,9 @@ import OR from "./img/otis.jpg";
 // backend integration
 import API from "./utils/API";
 
-
 // context
-const MyContext = React.createContext();
-class MyProvider extends Component {
+export const MyContext = React.createContext();
+export class MyProvider extends Component {
   state = {
     userID: null,
     loggedIn: false,
@@ -35,6 +34,7 @@ class MyProvider extends Component {
     defaultImage: 'https://res.cloudinary.com/yowats0n/image/upload/v1527687540/default_user.png',
     hasItemsInCart: false,
     cartTotal: 0,
+    clicked: false,
   }
 
   componentDidMount() {
@@ -135,6 +135,11 @@ class MyProvider extends Component {
     this.setState({ cartTotal: total })
   }
 
+  // click = () => {
+  //   console.log('CLICK')
+  //   this.setState({ clicked: true })
+  // }
+
   render() {
     return (
       <MyContext.Provider value={{
@@ -145,6 +150,7 @@ class MyProvider extends Component {
         albumInfo: this.state.albumInfo,
         hasItemsInCart: this.state.hasItemsInCart,
         cartTotal: this.state.cartTotal,
+        clicked: this.state.clicked,
         
         addToCart: this.addToCart,
         userCheck: this.userCheck,
@@ -154,6 +160,7 @@ class MyProvider extends Component {
         getAlbumInfo: this.getAlbumInfo,
         removeCartItem: this.removeCartItem,
         getCartTotal: this.getCartTotal,
+        click: this.click,
         
       }}>
         {this.props.children}
